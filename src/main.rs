@@ -4,11 +4,16 @@ use crate::days::Part;
 
 mod days;
 mod day01;
+mod day02;
 
 const DAYS: &[days::Day] = &[
     &[
         Part::new("Part 1", day01::part1),
         Part::new("Part 2", day01::part2),
+    ],
+    &[
+        Part::new("Part 1", day02::part1),
+        Part::new("Part 2", day02::part2),
     ],
 ];
 
