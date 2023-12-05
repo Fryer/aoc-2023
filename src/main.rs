@@ -61,6 +61,8 @@ fn main() {
     };
     for part in DAYS[day - 1] {
         println!("=== {} ===", part.name);
+        let start = std::time::Instant::now();
         (part.run)(&input);
+        println!("Time: {} µs", start.elapsed().as_micros());
     }
 }
