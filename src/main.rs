@@ -7,6 +7,7 @@ mod day01;
 mod day02;
 mod day03;
 mod day04;
+mod day05;
 
 const DAYS: &[days::Day] = &[
     &[
@@ -24,6 +25,10 @@ const DAYS: &[days::Day] = &[
     &[
         Part::new("Part 1", day04::part1),
         Part::new("Part 2", day04::part2),
+    ],
+    &[
+        Part::new("Part 1", day05::part1),
+        Part::new("Part 2", day05::part2),
     ],
 ];
 
@@ -48,7 +53,7 @@ fn main() {
         return;
     }
     let input = match fs::read_to_string(format!("input/day{:02}.txt", day)) {
-        Ok(data) => data,
+        Ok(data) => data.replace('\r', ""),
         Err(_) => {
             println!("Input file \"input/day{:02}.txt\" not found.", day);
             return;
