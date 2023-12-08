@@ -1,4 +1,4 @@
-pub fn part1(input: &str) {
+pub fn part1(input: &str) -> String {
     let (seeds_text, maps_text) = input.split_once("\n\n").unwrap();
     let seeds = parse_seeds(seeds_text);
     let maps = parse_maps(maps_text);
@@ -15,10 +15,10 @@ pub fn part1(input: &str) {
         locations = mapping.collect();
     }
     let lowest = locations.iter().min().unwrap();
-    println!("Lowest location: {}", lowest);
+    return format!("Lowest location: {}", lowest);
 }
 
-pub fn part2(input: &str) {
+pub fn part2(input: &str) -> String {
     let (seeds_text, maps_text) = input.split_once("\n\n").unwrap();
     let seeds = parse_seed_ranges(seeds_text);
     let maps = parse_maps(maps_text);
@@ -61,7 +61,7 @@ pub fn part2(input: &str) {
         locations = mapping;
     }
     let lowest = locations.iter().map(|x| x.start).min().unwrap();
-    println!("Lowest location: {}", lowest);
+    return format!("Lowest location: {}", lowest);
 }
 
 fn parse_seeds(text: &str) -> impl Iterator<Item = i64> + '_ {

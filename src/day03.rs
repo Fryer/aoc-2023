@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-pub fn part1(input: &str) {
+pub fn part1(input: &str) -> String {
     let mut grid: Vec<Vec<_>> = input.lines().map(|x| x.chars().collect()).collect();
     for (y, line) in input.lines().enumerate() {
         for (x, ch) in line.chars().enumerate() {
@@ -39,10 +39,10 @@ pub fn part1(input: &str) {
             sum += number.parse::<u32>().unwrap();
         }
     }
-    println!("Sum of engine parts: {}", sum);
+    return format!("Sum of engine parts: {}", sum);
 }
 
-pub fn part2(input: &str) {
+pub fn part2(input: &str) -> String {
     let height = input.lines().count();
     let width = input.lines().next().unwrap().len();
     let mut grid = Grid::new(height, width);
@@ -90,7 +90,7 @@ pub fn part2(input: &str) {
             sum += gear.numbers.iter().product::<u32>();
         }
     }
-    println!("Sum of gear ratios: {}", sum);
+    return format!("Sum of gear ratios: {}", sum);
 }
 
 const NEIGHBORS: &[(isize, isize)] = &[

@@ -1,6 +1,6 @@
 use std::collections::{HashSet, VecDeque};
 
-pub fn part1(input: &str) {
+pub fn part1(input: &str) -> String {
     let cards = parse_cards(input);
     let mut sum = 0;
     for card in cards {
@@ -14,10 +14,10 @@ pub fn part1(input: &str) {
         }
         sum += score;
     }
-    println!("Sum of scores: {}", sum);
+    return format!("Sum of scores: {}", sum);
 }
 
-pub fn part2(input: &str) {
+pub fn part2(input: &str) -> String {
     let cards = parse_cards(input);
     let mut copy_queue = VecDeque::from([0]);
     let mut count = 0;
@@ -41,7 +41,7 @@ pub fn part2(input: &str) {
             copy_queue.push_back(0);
         }
     }
-    println!("Total number of cards: {}", count);
+    return format!("Total number of cards: {}", count);
 }
 
 fn parse_cards(text: &str) -> impl Iterator<Item = Card> + '_ {

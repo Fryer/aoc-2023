@@ -1,13 +1,13 @@
-pub fn part1(input: &str) {
+pub fn part1(input: &str) -> String {
     let hands = parse_hands(input, false);
     let total = calculate_winnings(hands);
-    println!("Total winnings: {}", total);
+    return format!("Total winnings: {}", total);
 }
 
-pub fn part2(input: &str) {
+pub fn part2(input: &str) -> String {
     let hands = parse_hands(input, true);
     let total = calculate_winnings(hands);
-    println!("Total winnings: {}", total);
+    return format!("Total winnings: {}", total);
 }
 
 fn calculate_winnings(mut hands: Vec<Hand>) -> u32 {

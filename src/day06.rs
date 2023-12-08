@@ -1,13 +1,13 @@
-pub fn part1(input: &str) {
+pub fn part1(input: &str) -> String {
     let races = parse_races(input, parse_numbers_separate);
     let combinations: u64 = races.map(|race| calculate_wins(race)).product();
-    println!("Number of ways to win: {}", combinations);
+    return format!("Number of ways to win: {}", combinations);
 }
 
-pub fn part2(input: &str) {
+pub fn part2(input: &str) -> String {
     let race = parse_races(input, parse_numbers_together).next().unwrap();
     let wins = calculate_wins(race);
-    println!("Number of ways to win: {}", wins);
+    return format!("Number of ways to win: {}", wins);
 }
 
 fn calculate_wins(race: Race) -> u64 {

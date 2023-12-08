@@ -1,10 +1,10 @@
 pub struct Part<'a> {
     pub name: &'a str,
-    pub run: fn(&str)
+    pub run: fn(&str) -> String
 }
 
 impl Part<'_> {
-    pub const fn new(name: &str, run: fn(&str)) -> Part {
+    pub const fn new(name: &str, run: fn(&str) -> String) -> Part {
         return Part { name, run };
     }
 }

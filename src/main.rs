@@ -47,11 +47,12 @@ fn main() {
     print!("Day (default = all): ");
     io::stdout().flush().unwrap();
     let day_input = io::stdin().lines().next().unwrap().unwrap();
+    let mut output = String::new();
     let timer = Instant::now();
     if day_input.is_empty() {
         for day in 1..=DAYS.len() {
             match read_day_input(day) {
-                Ok(input) => run_day(day, &input),
+                Ok(input) => output += &run_day(day, &input),
                 Err(_) => return,
             };
         }
@@ -62,12 +63,13 @@ fn main() {
             Err(_) => return,
         };
         match read_day_input(day) {
-            Ok(input) => run_day(day, &input),
+            Ok(input) => output += &run_day(day, &input),
             Err(_) => return,
         };
     }
-    println!("=== Done! ===");
-    println!("Total time: {} µs", timer.elapsed().as_micros());
+    output += &format!("=== Done! ===\n");
+    output += &format!("Total time: {} µs\n", timer.elapsed().as_micros());
+    print!("{}", output);
 }
 
 fn parse_day(text: &str) -> Result<usize, ()> {
@@ -99,11 +101,13 @@ fn read_day_input(day: usize) -> Result<String, ()> {
     };
 }
 
-fn run_day(day: usize, input: &str) {
+fn run_day(day: usize, input: &str) -> String {
+    let mut output = String::new();
     for part in DAYS[day - 1] {
-        println!("=== {} ===", part.name);
+        output += &format!("=== {} ===\n", part.name);
         let timer = Instant::now();
-        (part.run)(input);
-        println!("Time: {} µs", timer.elapsed().as_micros());
+        output += &((part.run)(input) + "\n");
+        output += &format!("Time: {} µs\n", timer.elapsed().as_micros());
     }
+    return output;
 }

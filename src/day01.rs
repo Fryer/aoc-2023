@@ -1,4 +1,4 @@
-pub fn part1(input: &str) {
+pub fn part1(input: &str) -> String {
     let mut sum = 0;
     let lines = input.lines();
     for line in lines {
@@ -8,10 +8,10 @@ pub fn part1(input: &str) {
         let calibration = 10 * first + last;
         sum += calibration;
     }
-    println!("Sum of calibration values: {}", sum);
+    return format!("Sum of calibration values: {}", sum);
 }
 
-pub fn part2(input: &str) {
+pub fn part2(input: &str) -> String {
     const DIGIT_NAMES: &[(u32, &str)] = &[
         (1, "one"), (1, "1"),
         (2, "two"), (2, "2"),
@@ -46,5 +46,5 @@ pub fn part2(input: &str) {
         let calibration = 10 * first.unwrap() + last.unwrap();
         sum += calibration;
     }
-    println!("Sum of calibration values: {}", sum);
+    return format!("Sum of calibration values: {}", sum);
 }

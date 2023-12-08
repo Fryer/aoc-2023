@@ -1,4 +1,4 @@
-pub fn part1(input: &str) {
+pub fn part1(input: &str) -> String {
     const MAX_SET: Set = Set::new(12, 13, 14);
 
     let mut sum = 0;
@@ -16,10 +16,10 @@ pub fn part1(input: &str) {
             sum += game.id;
         }
     }
-    println!("Sum of game IDs: {}", sum);
+    return format!("Sum of game IDs: {}", sum);
 }
 
-pub fn part2(input: &str) {
+pub fn part2(input: &str) -> String {
     let mut sum = 0;
     let lines = input.lines();
     let games = lines.map(parse_game);
@@ -33,7 +33,7 @@ pub fn part2(input: &str) {
         let power = min_set.red * min_set.green * min_set.blue;
         sum += power;
     }
-    println!("Sum of games' minimum set powers: {}", sum);
+    return format!("Sum of games' minimum set powers: {}", sum);
 }
 
 fn parse_game(text: &str) -> Game<impl IntoIterator<Item = Set> + '_> {
