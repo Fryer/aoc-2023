@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 num-integer = "0.1"
+itertools = "0.12"
+ndarray = "0.15"
