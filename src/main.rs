@@ -19,6 +19,8 @@ mod day12;
 mod day13;
 mod day14;
 mod day15;
+mod day16;
+mod canvas;
 
 const DAYS: &[days::Day] = &[
     &[
@@ -81,10 +83,15 @@ const DAYS: &[days::Day] = &[
         Part::new("Day 15, part 1", day15::part1),
         Part::new("Day 15, part 2", day15::part2),
     ],
+    &[
+        Part::new("Day 16, part 1", day16::part1),
+        Part::new("Day 16, part 2", day16::part2),
+        Part::new("Day 16 visualization", day16::visualize),
+    ],
 ];
 
 fn main() {
-    print!("Day (default = all): ");
+    print!("Day (default = all, add '+' for extras): ");
     io::stdout().flush().unwrap();
     let day_input = io::stdin().lines().next().unwrap().unwrap();
     let mut output = String::new();
@@ -92,28 +99,34 @@ fn main() {
     if day_input.is_empty() {
         for day in 1..=DAYS.len() {
             match read_day_input(day) {
-                Ok(input) => output += &run_day(day, &input),
+                Ok(input) => output += &run_day(day, &input, false),
                 Err(_) => return,
             };
         }
     }
     else {
-        let day: usize = match parse_day(&day_input) {
-            Ok(day) => day,
+        let (day, extras) = match parse_day(&day_input) {
+            Ok((day, extra)) => (day, extra),
             Err(_) => return,
         };
+        if extras && DAYS[day - 1].len() < 3 {
+            println!("Day {} extras not added.", day);
+            return;
+        }
         match read_day_input(day) {
-            Ok(input) => output += &run_day(day, &input),
+            Ok(input) => output += &run_day(day, &input, extras),
             Err(_) => return,
         };
     }
-    output += &format!("=== Done! ===\n");
+    output += "=== Done! ===\n";
     output += &format!("Total time: {} µs\n", timer.elapsed().as_micros());
     print!("{}", output);
 }
 
-fn parse_day(text: &str) -> Result<usize, ()> {
-    let day: usize = match text.trim_end().parse() {
+fn parse_day(text: &str) -> Result<(usize, bool), ()> {
+    let extras = text.find('+').is_some();
+    let day_text = if extras { &text[0..text.len() - 1] } else { text };
+    let day: usize = match day_text.trim_end().parse() {
         Ok(day) => day,
         Err(_) => {
             println!("Day must be 1-25.");
@@ -128,7 +141,7 @@ fn parse_day(text: &str) -> Result<usize, ()> {
         println!("Day {} not implemented.", day);
         return Err(());
     }
-    return Ok(day);
+    return Ok((day, extras));
 }
 
 fn read_day_input(day: usize) -> Result<String, ()> {
@@ -141,9 +154,11 @@ fn read_day_input(day: usize) -> Result<String, ()> {
     };
 }
 
-fn run_day(day: usize, input: &str) -> String {
+fn run_day(day: usize, input: &str, extras: bool) -> String {
     let mut output = String::new();
-    for part in DAYS[day - 1] {
+    let parts = DAYS[day - 1];
+    let parts = if extras { &parts[2..] } else { &parts[0..2.min(parts.len())] };
+    for part in parts {
         output += &format!("=== {} ===\n", part.name);
         let timer = Instant::now();
         output += &((part.run)(input) + "\n");
