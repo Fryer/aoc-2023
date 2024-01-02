@@ -27,6 +27,7 @@ mod day19;
 mod day20;
 mod day21;
 mod day22;
+mod day23;
 
 const DAYS: &[days::Day] = &[
     &[
@@ -117,6 +118,10 @@ const DAYS: &[days::Day] = &[
     &[
         Part::new("Day 22, part 1", day22::part1),
         Part::new("Day 22, part 2", day22::part2),
+    ],
+    &[
+        Part::new("Day 23, part 1", day23::part1),
+        Part::new("Day 23, part 2", day23::part2),
     ],
 ];
 
